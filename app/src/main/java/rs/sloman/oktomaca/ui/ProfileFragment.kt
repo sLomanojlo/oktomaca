@@ -9,17 +9,12 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import rs.sloman.oktomaca.R
 import rs.sloman.oktomaca.databinding.FragmentProfileBinding
-import rs.sloman.oktomaca.repo.Repo
 import rs.sloman.oktomaca.viewmodel.MainViewModel
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: MainViewModel by viewModels()
-
-    @Inject
-    lateinit var repo: Repo
 
 
     override fun onCreateView(
@@ -36,7 +31,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        setHasOptionsMenu(true)
+
 
         return binding.root
     }

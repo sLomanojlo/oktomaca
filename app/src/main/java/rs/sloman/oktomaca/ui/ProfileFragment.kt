@@ -1,15 +1,14 @@
 package rs.sloman.oktomaca.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import rs.sloman.oktomaca.R
+import rs.sloman.oktomaca.databinding.FragmentProfileBinding
 import rs.sloman.oktomaca.repo.Repo
 import rs.sloman.oktomaca.viewmodel.MainViewModel
 import javax.inject.Inject
@@ -23,16 +22,22 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     lateinit var repo: Repo
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        GlobalScope.launch(Dispatchers.IO) {
-            val response = repo.getProfile()
+        val binding = FragmentProfileBinding.inflate(layoutInflater)
 
-            if (response.isSuccessful) {
-                Log.d("Slobodan", response.body().toString())
-            }
-        }
+        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        binding.lifecycleOwner = this
+
+        // Giving the binding access to the OverviewViewModel
+        binding.viewModel = viewModel
+
+        setHasOptionsMenu(true)
+
+        return binding.root
     }
-
 }

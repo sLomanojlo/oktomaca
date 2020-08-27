@@ -5,9 +5,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import rs.sloman.oktomaca.R
+import rs.sloman.oktomaca.model.UserRepo
 import rs.sloman.oktomaca.network.Status
 
 
@@ -61,4 +63,10 @@ fun bindStatus(imageView: ImageView, status: Status) {
         }
 
     }
+}
+
+@BindingAdapter("bindRecyclerView")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<UserRepo>?) {
+    val adapter = recyclerView.adapter as RepoGridAdapter
+    adapter.submitList(data)
 }

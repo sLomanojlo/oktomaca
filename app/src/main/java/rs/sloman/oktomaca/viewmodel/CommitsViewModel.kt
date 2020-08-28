@@ -1,11 +1,15 @@
 package rs.sloman.oktomaca.viewmodel
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import rs.sloman.oktomaca.model.CommitBase
 import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.repo.Repo
+import rs.sloman.oktomaca.util.Constants
 
 
 class CommitsViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
@@ -29,10 +33,18 @@ class CommitsViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
      fun getCommitsBase(repoName: String?) {
 
         viewModelScope.launch {
+            _status.value = Status.LOADING
+
             try {
-                _commitsBase.value = repoName?.let { repo.getCommits(it).body() }
-                _status.value = Status.DONE
+                val commitResponse = repo.getCommits(repoName!!)
+
+                if (commitResponse.isSuccessful) {
+                    _commitsBase.value = commitResponse.body()
+                    _status.value = Status.DONE
+                } else throw Exception (Constants.CONNECTION_ERROR)
+
             } catch (e: Exception) {
+                e.printStackTrace()
                 _status.value = Status.ERROR
             }
         }

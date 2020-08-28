@@ -10,7 +10,9 @@ import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import rs.sloman.oktomaca.MainActivity
 import rs.sloman.oktomaca.R
+import rs.sloman.oktomaca.adapter.CommitAdapter
 import rs.sloman.oktomaca.databinding.FragmentCommitsBinding
+import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.viewmodel.CommitsViewModel
 
 @AndroidEntryPoint
@@ -37,8 +39,23 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
         //Obtained repoName from bundle
         viewModel.repoName.value = arguments?.getString("repoName")
 
+        binding.rvCommits.setHasFixedSize(true)
+
+        binding.rvCommits.adapter = CommitAdapter()
+
         viewModel.repoName.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) viewModel.getCommitsBase(it)
+        })
+
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            if (viewModel.status.value == Status.ERROR) {
+                binding.ivStatusCommits.isEnabled = true
+                binding.ivStatusCommits.setOnClickListener {
+                    viewModel.getCommitsBase(viewModel.repoName.value)
+                }
+            } else {
+                binding.ivStatusCommits.isEnabled = false
+            }
         })
 
 

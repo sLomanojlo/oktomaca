@@ -10,6 +10,8 @@ import rs.sloman.oktomaca.model.Profile
 import rs.sloman.oktomaca.model.UserRepo
 import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.repo.Repo
+import rs.sloman.oktomaca.util.Constants
+import rs.sloman.oktomaca.util.Constants.CONNECTION_ERROR
 
 
 class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
@@ -17,34 +19,45 @@ class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
     // The internal MutableLiveDatas storing the values
     private val _profile = MutableLiveData<Profile>()
     private val _status = MutableLiveData<Status>()
-    private val _userReposList = MutableLiveData <List<UserRepo>>()
+    private val _userReposList = MutableLiveData<List<UserRepo>>()
 
 
     // The external immutable LiveDatas for outside use
     val status: LiveData<Status>
-    get() = _status
+        get() = _status
 
     val profile: LiveData<Profile>
-    get() = _profile
+        get() = _profile
 
     val userReposList: LiveData<List<UserRepo>>
-    get() = _userReposList
+        get() = _userReposList
 
     init {
         getProfile()
     }
 
 
-    private fun getProfile() {
+    fun getProfile() {
 
         viewModelScope.launch {
             _status.value = Status.LOADING
 
             try {
-                _profile.value = repo.getProfile().body()
-                _userReposList.value = profile.value?.reposUrl?.let { repo.getRepos(it).body() }
-                _status.value = Status.DONE
+                //TODO Handle exceptions
+                val responseProfile = repo.getProfile()
+                if (responseProfile.isSuccessful) {
+                    _profile.value = responseProfile.body()
+                    val responseRepos = repo.getRepos(profile.value!!.reposUrl)
+
+                    if (responseRepos.isSuccessful) {
+                        _userReposList.value = responseRepos.body()
+                        _status.value = Status.DONE
+
+                    } else throw Exception(CONNECTION_ERROR)
+                } else throw Exception(CONNECTION_ERROR)
+
             } catch (e: Exception) {
+                e.printStackTrace()
                 _status.value = Status.ERROR
             }
         }

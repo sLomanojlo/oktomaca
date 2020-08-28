@@ -10,12 +10,12 @@ import rs.sloman.oktomaca.model.UserRepo
 
 
 class RepoGridAdapter(private val onClickListener: OnClickListener)
-    : ListAdapter<UserRepo, RepoGridAdapter.UserRepoViewHolder>(DiffCallback)
+    : ListAdapter<UserRepo, RepoGridAdapter.RepoViewHolder>(DiffCallback)
 {
 
 
 
-    class UserRepoViewHolder(private var binding: RepoItemBinding) :
+    class RepoViewHolder(private var binding: RepoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(userRepo: UserRepo) {
@@ -36,11 +36,11 @@ class RepoGridAdapter(private val onClickListener: OnClickListener)
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserRepoViewHolder {
-        return UserRepoViewHolder((RepoItemBinding.inflate(LayoutInflater.from(parent.context))))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
+        return RepoViewHolder((RepoItemBinding.inflate(LayoutInflater.from(parent.context))))
     }
 
-    override fun onBindViewHolder(holder: UserRepoViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
         val userRepo = getItem(position)
         holder.itemView.setOnClickListener{
             onClickListener.onClick(userRepo)

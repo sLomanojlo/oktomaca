@@ -15,15 +15,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
+        <ImageView
+            android:id="@+id/ivStatus_commits"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Commits"
+            android:elevation="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:bindStatus="@{viewModel.status}"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCommits"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="6dp"
+            app:bindCommits="@{viewModel.commitsBase}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/commit_item" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

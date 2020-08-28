@@ -1,5 +1,7 @@
 package rs.sloman.oktomaca.di
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,10 +20,15 @@ object AppModule {
     @Provides
     fun provideGithubApi(): GithubApi {
         return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(Gson()))
+
             .baseUrl(Constants.BASE_URL)
             .build()
             .create(GithubApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideGsonBuilder(): Gson = GsonBuilder().setDateFormat("yyyy-MM-ddTHH:mm:ssZ").create()
 
 }

@@ -37,9 +37,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.viewModel = viewModel
 
         binding.rvRepos.adapter = RepoGridAdapter(RepoGridAdapter.OnClickListener{
-            //TODO click handling
-            Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()
-            Navigation.findNavController(binding.rvRepos).navigate(R.id.action_profileFragment_to_commitsFragment)
+            val bundle = Bundle().apply{ putString("repoName", it.name)}
+
+            Navigation.findNavController(binding.rvRepos).navigate(
+                R.id.action_profileFragment_to_commitsFragment, bundle)
         })
 
         return binding.root

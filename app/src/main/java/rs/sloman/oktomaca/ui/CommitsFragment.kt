@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import dagger.hilt.android.AndroidEntryPoint
 import rs.sloman.oktomaca.MainActivity
 import rs.sloman.oktomaca.R
@@ -33,7 +34,15 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        return super.onCreateView(inflater, container, savedInstanceState)
+        //Obtained repoName from bundle
+        viewModel.repoName.value = arguments?.getString("repoName")
+
+        viewModel.repoName.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()) viewModel.getCommitsBase(it)
+        })
+
+
+        return binding.root
 
     }
 

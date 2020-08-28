@@ -14,7 +14,7 @@ import rs.sloman.oktomaca.repo.Repo
 
 class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
 
-    // The internal MutableLiveDatas that stores the values
+    // The internal MutableLiveDatas storing the values
     private val _profile = MutableLiveData<Profile>()
     private val _status = MutableLiveData<Status>()
     private val _userReposList = MutableLiveData <List<UserRepo>>()

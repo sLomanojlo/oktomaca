@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import dagger.hilt.android.AndroidEntryPoint
+import rs.sloman.oktomaca.MainActivity
 import rs.sloman.oktomaca.R
 import rs.sloman.oktomaca.adapter.RepoGridAdapter
 import rs.sloman.oktomaca.databinding.FragmentProfileBinding
@@ -19,12 +19,13 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private val viewModel: MainViewModel by viewModels()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        (activity as MainActivity?)?.supportActionBar?.title = "Profile"
 
         val binding = FragmentProfileBinding.inflate(layoutInflater)
 
@@ -34,7 +35,6 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        binding.rvRepos.addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         binding.rvRepos.adapter = RepoGridAdapter(RepoGridAdapter.OnClickListener{
             //TODO click handling
             Toast.makeText(requireContext(), it.name, Toast.LENGTH_SHORT).show()

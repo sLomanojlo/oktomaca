@@ -12,7 +12,7 @@ import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.repo.Repo
 
 
-class MainViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
+class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
 
     // The internal MutableLiveDatas that stores the values
     private val _profile = MutableLiveData<Profile>()

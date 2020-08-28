@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="rs.sloman.oktomaca.viewmodel.MainViewModel" />
+            type="rs.sloman.oktomaca.viewmodel.ProfileViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

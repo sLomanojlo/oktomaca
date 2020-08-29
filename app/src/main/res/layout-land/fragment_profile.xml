@@ -23,20 +23,18 @@
             tools:src = "@mipmap/ic_launcher"
             app:bindImage="@{viewModel.profile.imgUrl}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Profile photo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tvUsername"
+        <ImageView
+            android:id="@+id/ivStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:bindTextView="@{viewModel.profile.name}"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:elevation="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivProfilePhoto"
-            tools:text="Profile name" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:bindStatus="@{viewModel.status}" />
 
         <TextView
             android:id="@+id/tvCompany"
@@ -49,23 +47,21 @@
             app:layout_constraintTop_toBottomOf="@+id/tvUsername"
             tools:text="Company" />
 
-        <ImageView
-            android:id="@+id/ivStatus"
+        <TextView
+            android:id="@+id/tvUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp"
+            app:bindTextView="@{viewModel.profile.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:bindStatus="@{viewModel.status}"
-            android:contentDescription="Status" />
+            app:layout_constraintTop_toBottomOf="@+id/ivProfilePhoto"
+            tools:text="Profile name" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRepos"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
             android:clipToPadding="false"
             android:padding="6dp"
             app:bindRepos="@{viewModel.userReposList}"
@@ -74,12 +70,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvCompany"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:spanCount="2"
             tools:itemCount="16"
             tools:listitem="@layout/repo_item" />
+
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".33" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

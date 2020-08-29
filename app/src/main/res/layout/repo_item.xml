@@ -31,28 +31,34 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/tvId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:text="Id"
-                    app:bindId="@{repo.id}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:padding="2dp"
                     android:scaleType="centerCrop"
-                    android:text="Name"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     app:bindTextView="@{repo.name}"
+                    app:layout_constraintBottom_toTopOf="@+id/tvOpenIssues"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvId" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Name" />
+
+                <TextView
+                    android:id="@+id/tvOpenIssues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="2dp"
+                    android:scaleType="centerCrop"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    app:bindOpenIssues="@{repo.openIssues}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvName"
+                    tools:text="openIssues" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -98,3 +98,8 @@ fun bindDate(textView: TextView, date: Date?) {
         textView.text = SimpleDateFormat("dd/MM/yyyy").format(date)
     }
 }
+
+@BindingAdapter("bindOpenIssues")
+fun bindOpenIssues(textView: TextView, openIssues: Int) {
+    textView.text = if(openIssues > 0) "Open issues: $openIssues" else "No open issues"
+}

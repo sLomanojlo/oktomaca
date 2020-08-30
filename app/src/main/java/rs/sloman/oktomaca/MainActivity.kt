@@ -6,6 +6,8 @@ import androidx.appcompat.widget.Toolbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+
+/** Implementing a single-activity pattern with minimal logic in it.*/
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +15,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar as Toolbar)
-
     }
 }

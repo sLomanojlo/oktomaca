@@ -9,12 +9,13 @@ import rs.sloman.oktomaca.model.Profile
 import rs.sloman.oktomaca.model.UserRepo
 
 
+/** Classical Retrofit interface DAO with suspend functions.*/
 interface GithubApi {
 
     @GET("/users/octocat")
     suspend fun getProfile(): Response<Profile>
 
-    @GET()
+    @GET
     suspend fun getRepos(@Url url: String): Response<List<UserRepo>>
 
     @GET("/repos/octocat/{repoName}/commits")

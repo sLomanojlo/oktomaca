@@ -14,8 +14,12 @@ import rs.sloman.oktomaca.R
 import rs.sloman.oktomaca.adapter.RepoGridAdapter
 import rs.sloman.oktomaca.databinding.FragmentProfileBinding
 import rs.sloman.oktomaca.network.Status
+import rs.sloman.oktomaca.util.Constants
 import rs.sloman.oktomaca.viewmodel.ProfileViewModel
 
+
+/**Initial Fragment that shows the Profile and the Repos of the user Octocat.
+ * */
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -27,23 +31,24 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         savedInstanceState: Bundle?
     ): View? {
 
-        (activity as MainActivity?)?.supportActionBar?.title = "Profile"
+        (activity as MainActivity?)?.supportActionBar?.title = getString(R.string.profile)
 
         val binding = FragmentProfileBinding.inflate(layoutInflater)
 
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        /** Allows Data Binding to Observe LiveData with the lifecycle of this Fragment */
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
+        /** Giving the binding access to the OverviewViewModel  */
         binding.viewModel = viewModel
 
         binding.rvRepos.adapter = RepoGridAdapter(RepoGridAdapter.OnClickListener{
-            val bundle = Bundle().apply{ putString("repoName", it.name)}
+            val bundle = Bundle().apply{ putString(Constants.REPO_NAME, it.name)}
 
             Navigation.findNavController(binding.rvRepos).navigate(
                 R.id.action_profileFragment_to_commitsFragment, bundle)
         })
 
+        /** Observer for status that enables a retry button for fetching remote data. */
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if (viewModel.status.value == Status.ERROR) {
                 binding.ivStatus.isEnabled = true

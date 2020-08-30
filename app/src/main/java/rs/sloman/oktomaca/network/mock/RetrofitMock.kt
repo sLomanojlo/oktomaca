@@ -8,6 +8,8 @@ import retrofit2.mock.NetworkBehavior
 import rs.sloman.oktomaca.util.Constants
 
 
+/** FakeGithubApi that returns a MockService
+ * populated with a NetworkBehavior attached to MockRetrofit*/
 class RetrofitMock {
 
     companion object {

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Oktomaca</string>
+    <string name="profile">Profile</string>
+    <string name="commits">Commits</string>
+    <string name="profile_photo">Profile photo</string>
+    <string name="status">Status</string>
 </resources>

@@ -24,7 +24,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:bindStatus="@{viewModel.status}"/>
+            app:bindStatus="@{viewModel.status}"
+            android:contentDescription="Status" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCommits"

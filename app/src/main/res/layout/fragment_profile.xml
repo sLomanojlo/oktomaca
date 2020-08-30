@@ -24,7 +24,7 @@
             app:bindImage="@{viewModel.profile.imgUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Profile photo" />
+            android:contentDescription="@string/profile_photo" />
 
         <TextView
             android:id="@+id/tvUsername"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:bindStatus="@{viewModel.status}"
-            android:contentDescription="Status" />
+            android:contentDescription="@string/status" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRepos"

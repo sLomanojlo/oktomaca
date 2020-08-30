@@ -23,7 +23,8 @@
             tools:src = "@mipmap/ic_launcher"
             app:bindImage="@{viewModel.profile.imgUrl}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="Profile photo" />
 
         <ImageView
             android:id="@+id/ivStatus"
@@ -34,7 +35,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:bindStatus="@{viewModel.status}" />
+            app:bindStatus="@{viewModel.status}"
+            android:contentDescription="Status" />
 
         <TextView
             android:id="@+id/tvCompany"

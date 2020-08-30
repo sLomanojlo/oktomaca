@@ -13,8 +13,12 @@ import rs.sloman.oktomaca.R
 import rs.sloman.oktomaca.adapter.CommitAdapter
 import rs.sloman.oktomaca.databinding.FragmentCommitsBinding
 import rs.sloman.oktomaca.network.Status
+import rs.sloman.oktomaca.util.Constants
 import rs.sloman.oktomaca.viewmodel.CommitsViewModel
 
+
+/** Second Fragment that shows the commits from Repos.
+ *  Implemented using data binding and the user lands here thanks to Navigation Components*/
 @AndroidEntryPoint
 class CommitsFragment : Fragment(R.layout.fragment_commits) {
 
@@ -26,18 +30,18 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
         savedInstanceState: Bundle?
     ): View? {
 
-        (activity as MainActivity?)?.supportActionBar?.title = "Commits"
+        (activity as MainActivity?)?.supportActionBar?.title = getString(R.string.commits)
 
         val binding = FragmentCommitsBinding.inflate(layoutInflater)
 
-        // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
+        /** Allows Data Binding to Observe LiveData with the lifecycle of this Fragment */
         binding.lifecycleOwner = this
 
-        // Giving the binding access to the OverviewViewModel
+        /** Giving the binding access to the OverviewViewModel */
         binding.viewModel = viewModel
 
-        //Obtained repoName from bundle
-        viewModel.repoName.value = arguments?.getString("repoName")
+        /** Obtained repoName from bundle  */
+        viewModel.repoName.value = arguments?.getString(Constants.REPO_NAME)
 
         binding.rvCommits.setHasFixedSize(true)
 
@@ -47,6 +51,7 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
             if (repoName.isNotEmpty()) viewModel.getCommitsBase(repoName)
         })
 
+        /** Observer for status that enables a retry button for fetching remote data. */
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if (viewModel.status.value == Status.ERROR) {
                 binding.ivStatusCommits.isEnabled = true
@@ -61,9 +66,7 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
             }
         })
 
-
         return binding.root
 
     }
-
 }

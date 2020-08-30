@@ -10,19 +10,18 @@ import rs.sloman.oktomaca.model.Profile
 import rs.sloman.oktomaca.model.UserRepo
 import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.repo.Repo
-import rs.sloman.oktomaca.util.Constants
 import rs.sloman.oktomaca.util.Constants.CONNECTION_ERROR
 
 
 class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
 
-    // The internal MutableLiveDatas storing the values
+    /** The internal MutableLiveData storing the values. */
     private val _profile = MutableLiveData<Profile>()
     private val _status = MutableLiveData<Status>()
     private val _userReposList = MutableLiveData<List<UserRepo>>()
 
 
-    // The external immutable LiveDatas for outside use
+    /** The external immutable LiveData for outside use. */
     val status: LiveData<Status>
         get() = _status
 
@@ -32,11 +31,13 @@ class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
     val userReposList: LiveData<List<UserRepo>>
         get() = _userReposList
 
+    /** Fetch user's profile on ViewModel creation. */
     init {
         getProfile()
     }
 
 
+    /** Coroutines function to fetch user's profile & repos with error handling. */
     fun getProfile() {
 
         viewModelScope.launch {

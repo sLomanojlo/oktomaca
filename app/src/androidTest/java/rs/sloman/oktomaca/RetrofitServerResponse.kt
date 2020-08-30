@@ -29,7 +29,7 @@ class RetrofitServerResponse {
         CoroutineScope(Dispatchers.Main).launch{
             response = fakeService.getProfile()
 
-            Timber.d("Slobodan ${response.body()}")
+            Timber.d("${response.body()}")
             assertEquals(response.body()?.id, 1)
             assertEquals(response.body()?.name, "Slo")
             assertEquals(response.body()?.company, "SRA")
@@ -38,7 +38,7 @@ class RetrofitServerResponse {
 
         }
 
-        Timber.d("Slobodan end")
+        Timber.d("end")
 
     }
 
@@ -51,13 +51,13 @@ class RetrofitServerResponse {
         CoroutineScope(Dispatchers.Main).launch{
             response = fakeService.getRepos("test")
 
-            Timber.d("Slobodan ${response.body()}")
+            Timber.d("${response.body()}")
 
             assert(response.body()?.size == 2)
 
         }
 
-        Timber.d("Slobodan end")
+        Timber.d("end")
 
     }
 }

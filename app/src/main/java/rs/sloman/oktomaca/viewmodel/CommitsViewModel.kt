@@ -11,26 +11,26 @@ import rs.sloman.oktomaca.network.Status
 import rs.sloman.oktomaca.repo.Repo
 import rs.sloman.oktomaca.util.Constants
 
-
+/** Core of the MVVM architecture.
+ * Obtaining the ViewModel with ViewModelInject.*/
 class CommitsViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel() {
 
-
-    // The internal MutableLiveData storing the values
+    /** The internal MutableLiveData storing mutable values. */
     private val _commitsBase = MutableLiveData<List<CommitBase>>()
     private val _status = MutableLiveData<Status>()
 
-    // The external immutable LiveData for outside use
+    /** The external immutable LiveData for outside use. */
     val commitsBase: LiveData<List<CommitBase>>
         get() = _commitsBase
 
-    // The external immutable LiveDatas for outside use
+    /** The external immutable LiveData for outside use. */
     val status: LiveData<Status>
         get() = _status
 
     val repoName: MutableLiveData<String> = MutableLiveData()
 
-
-     fun getCommitsBase(repoName: String) {
+    /** Coroutines function to retreive commits with error handling.*/
+    fun getCommitsBase(repoName: String) {
 
         viewModelScope.launch {
             _status.value = Status.LOADING
@@ -41,7 +41,7 @@ class CommitsViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
                 if (commitResponse.isSuccessful) {
                     _commitsBase.value = commitResponse.body()
                     _status.value = Status.DONE
-                } else throw Exception (Constants.CONNECTION_ERROR)
+                } else throw Exception(Constants.CONNECTION_ERROR)
 
             } catch (e: Exception) {
                 e.printStackTrace()

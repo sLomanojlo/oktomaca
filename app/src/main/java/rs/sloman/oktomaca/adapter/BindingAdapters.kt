@@ -15,21 +15,14 @@ import rs.sloman.oktomaca.network.Status
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-@BindingAdapter("bindId")
-fun bindId(textView: TextView, id: Int) {
-    textView.text = id.toString()
-}
-
+/** Binds String with TextView */
 @BindingAdapter("bindTextView")
 fun bindTextView(textView: TextView, text: String?) {
     textView.text = text
 }
 
 
-/**
- * Uses the Glide library to load an image by URL into an [ImageView]
- */
+/** Uses the Glide library to load an image by URL into an [ImageView] */
 @BindingAdapter("bindImage")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     if (imgUrl != null) {
@@ -50,7 +43,7 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-
+/** Binds Status with TextView */
 @BindingAdapter("bindStatus")
 fun bindStatus(imageView: ImageView, status: Status?) {
 
@@ -70,6 +63,7 @@ fun bindStatus(imageView: ImageView, status: Status?) {
     }
 }
 
+/** Binds List<UserRepo> with TextView */
 @BindingAdapter("bindRepos")
 fun bindReposRecyclerView(recyclerView: RecyclerView, data: List<UserRepo>?) {
     if (data.isNullOrEmpty()) {
@@ -81,6 +75,7 @@ fun bindReposRecyclerView(recyclerView: RecyclerView, data: List<UserRepo>?) {
     }
 }
 
+/** Binds List<CommitBase> with RecyclerView */
 @BindingAdapter("bindCommits")
 fun bindCommitsRecyclerView(recyclerView: RecyclerView, data: List<CommitBase>?) {
     if (data.isNullOrEmpty()) {
@@ -92,6 +87,7 @@ fun bindCommitsRecyclerView(recyclerView: RecyclerView, data: List<CommitBase>?)
     }
 }
 
+/** Binds Date with TextView */
 @BindingAdapter("bindDate")
 fun bindDate(textView: TextView, date: Date?) {
     date?.let {
@@ -99,6 +95,7 @@ fun bindDate(textView: TextView, date: Date?) {
     }
 }
 
+/** Binds Open issues with TextView */
 @BindingAdapter("bindOpenIssues")
 fun bindOpenIssues(textView: TextView, openIssues: Int) {
     textView.text = if(openIssues > 0) "Open issues: $openIssues" else "No open issues"

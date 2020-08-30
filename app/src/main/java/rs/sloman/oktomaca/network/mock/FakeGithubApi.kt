@@ -7,11 +7,12 @@ import rs.sloman.oktomaca.model.Profile
 import rs.sloman.oktomaca.model.UserRepo
 
 
+/** This is our FakeGithubApi, could be refactored to use the GithubApi class straight away.*/
 interface FakeGithubApi {
 
     @GET("user")
     suspend fun getProfile(): Response<Profile>
 
-    @GET()
+    @GET
     suspend fun getRepos(@Url url: String): Response<List<UserRepo>>
 }

@@ -6,6 +6,7 @@ import rs.sloman.oktomaca.model.Profile
 import rs.sloman.oktomaca.model.UserRepo
 
 
+/** Mock services that replicates the behavior of REST API calls and returns mock responses.*/
 class MockService(private val delegate: BehaviorDelegate<FakeGithubApi>) : FakeGithubApi {
 
     override suspend fun getProfile(): Response<Profile> {

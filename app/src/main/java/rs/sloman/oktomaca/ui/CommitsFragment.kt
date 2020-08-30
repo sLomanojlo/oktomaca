@@ -43,15 +43,18 @@ class CommitsFragment : Fragment(R.layout.fragment_commits) {
 
         binding.rvCommits.adapter = CommitAdapter()
 
-        viewModel.repoName.observe(viewLifecycleOwner, Observer {
-            if (it.isNotEmpty()) viewModel.getCommitsBase(it)
+        viewModel.repoName.observe(viewLifecycleOwner, Observer { repoName ->
+            if (repoName.isNotEmpty()) viewModel.getCommitsBase(repoName)
         })
 
         viewModel.status.observe(viewLifecycleOwner, Observer {
             if (viewModel.status.value == Status.ERROR) {
                 binding.ivStatusCommits.isEnabled = true
                 binding.ivStatusCommits.setOnClickListener {
-                    viewModel.getCommitsBase(viewModel.repoName.value)
+                    viewModel.repoName.value?.let {
+                        viewModel.getCommitsBase(it)
+                    }
+
                 }
             } else {
                 binding.ivStatusCommits.isEnabled = false

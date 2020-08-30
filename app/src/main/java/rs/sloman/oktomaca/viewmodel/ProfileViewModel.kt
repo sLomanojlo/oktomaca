@@ -43,11 +43,11 @@ class ProfileViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
             _status.value = Status.LOADING
 
             try {
-                //TODO Handle exceptions
                 val responseProfile = repo.getProfile()
                 if (responseProfile.isSuccessful) {
                     _profile.value = responseProfile.body()
-                    val responseRepos = repo.getRepos(profile.value!!.reposUrl)
+                    val responseRepos = profile.value?.reposUrl?.let { repo.getRepos(it) }
+                        ?: throw Exception(CONNECTION_ERROR)
 
                     if (responseRepos.isSuccessful) {
                         _userReposList.value = responseRepos.body()

@@ -30,13 +30,13 @@ class CommitsViewModel @ViewModelInject constructor(val repo: Repo) : ViewModel(
     val repoName: MutableLiveData<String> = MutableLiveData()
 
 
-     fun getCommitsBase(repoName: String?) {
+     fun getCommitsBase(repoName: String) {
 
         viewModelScope.launch {
             _status.value = Status.LOADING
 
             try {
-                val commitResponse = repo.getCommits(repoName!!)
+                val commitResponse = repo.getCommits(repoName)
 
                 if (commitResponse.isSuccessful) {
                     _commitsBase.value = commitResponse.body()
